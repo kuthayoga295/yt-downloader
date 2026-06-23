@@ -8,6 +8,7 @@ Place all required executable files in the root directory as shown below:
 
 ```text
 yt-downloader/
+├── converter.pyw
 ├── ffmpeg.exe -> https://www.ffmpeg.org/download.html
 ├── mpv.exe -> https://mpv.io/
 ├── yt-dlp.exe -> https://github.com/yt-dlp/yt-dlp
