@@ -35,6 +35,10 @@ Before running the application, ensure you have the following components:
 * **Usage**: Double-click `yt-downloader.pyw`.
 * **Description**: Launches a Graphical User Interface (GUI). Thanks to the `.pyw` extension, it runs directly as a windowed application without opening an extra background terminal window.
 
+### 3. Converter (`converter.pyw`)
+* **Usage**: Double-click `converter.pyw`.
+* **Description**: Video and audio converter GUI for ffmpeg.
+
 ## ✨ Features
 
 * **Dual Interface**: Choose between a lightweight CLI script or a visual GUI.
