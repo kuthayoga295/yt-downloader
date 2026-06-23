@@ -11,7 +11,7 @@ class FFmpegGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("FFmpeg Multi-Converter & Remuxer")
-        self.root.geometry("700x630")
+        self.root.geometry("700x660")
         
         # Cek ketersediaan ffmpeg.exe
         if not os.path.exists(FFMPEG_PATH):
@@ -88,6 +88,12 @@ class FFmpegGUI:
         self.cb_orient = ttk.Combobox(frame_settings, values=["Landscape", "Portrait"], state="readonly", width=10)
         self.cb_orient.grid(row=2, column=3, padx=5, pady=5, sticky="w")
         self.cb_orient.set("Landscape")
+
+        # --- PERUBAHAN BARU: TAMBAH OPSI FRAME RATE (FPS) ---
+        ttk.Label(frame_settings, text="Frame Rate:").grid(row=2, column=4, padx=5, pady=5, sticky="w")
+        self.cb_fps = ttk.Combobox(frame_settings, values=["Original", "30", "60"], state="readonly", width=10)
+        self.cb_fps.grid(row=2, column=5, padx=5, pady=5, sticky="w")
+        self.cb_fps.set("Original")
         
         self.update_codecs()
 
@@ -367,6 +373,7 @@ class FFmpegGUI:
         container = self.cb_container.get()
         gui_codec_v = self.cb_codec_v.get()
         codec_a = "libopus" if self.cb_codec_a.get() == "opus" else "aac"
+        fps_selection = self.cb_fps.get() # Ambil data frame rate
 
         # Tentukan target codec berdasarkan hardware pilihan user
         target_encoder = ""
@@ -381,13 +388,11 @@ class FFmpegGUI:
         # --- VALIDASI HARDWARE ACCELERATION & AUTO FALLBACK ---
         if target_encoder:
             if not self.is_hw_encoder_available(target_encoder):
-                # Buat pop-up peringatan interaktif
                 messagebox.showwarning(
                     "Hardware Tidak Mendukung", 
                     f"Komputer Anda tidak mendukung encoder '{target_encoder}' dari grafis {hw_selection}.\n\n"
                     f"Sistem secara otomatis mengalihkan (FALLBACK) proses ini ke 'None (CPU)' demi mencegah error."
                 )
-                # Ubah status GUI ke CPU secara langsung
                 self.cb_hw_accel.set("None (CPU)")
                 hw_selection = "None (CPU)"
 
@@ -430,6 +435,10 @@ class FFmpegGUI:
                 else:
                     codec_v = "libx264" if gui_codec_v == "h264" else "libx265"
                     cmd.extend(["-c:v", codec_v, "-crf", "23"])
+            
+            # --- PERUBAHAN BARU: INTEGRASI ARGUMEN FPS KE FFMPEG ---
+            if fps_selection != "Original":
+                cmd.extend(["-r", fps_selection])
                     
             cmd.extend(["-c:a", codec_a, "-vf", video_filters, output_file])
             
