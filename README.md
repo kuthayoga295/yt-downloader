@@ -21,9 +21,9 @@ Before running the application, ensure you have the following components:
 
 1. **Python 3.x** installed on your system (required for the GUI version).
 2. **External Binaries** placed in the project folder:
-   * `yt-dlp.exe`: The core download engine.
-   * `ffmpeg.exe`: Required for merging high-quality video and audio streams.
-   * `mpv.exe`: Optional, used for video preview/playback functionality.
+   * `yt-dlp.exe`: The core download engine (https://github.com/yt-dlp/yt-dlp).
+   * `ffmpeg.exe`: Required for merging high-quality video and audio streams (https://www.ffmpeg.org/download.html).
+   * `mpv.exe`: Optional, used for video preview/playback functionality (https://mpv.io/).
 
 ## 🛠️ How to Run
 
